@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 const bookingSchema = mongoose.Schema(
   {
@@ -19,8 +19,8 @@ const bookingSchema = mongoose.Schema(
     },
   },
   { timestamps: true }
-);
+)
 
-const bookingModel = mongoose.model("bookings", bookingSchema);
+const bookingModel = mongoose.model("bookings", bookingSchema)
 
-module.exports = bookingModel;
+module.exports = bookingModel

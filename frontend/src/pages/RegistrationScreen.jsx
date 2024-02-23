@@ -36,6 +36,7 @@ function RegisterScreen() {
           "http://localhost:5000/api/users/register",
           user
         )
+        localStorage.setItem("currentUser", JSON.stringify(response))
         console.log(response.data)
         toast.success("Registartion successfull.")
         setSuccess(response)
@@ -51,19 +52,17 @@ function RegisterScreen() {
       }
       setLoading(false)
     } else {
-      toast("Password not matched")
+      setError("please filled the input field properly.")
     }
   }
 
   return (
     <div>
-      {loading && <Loader></Loader>}
       {error.length > 0 && <Error msg={error}></Error>}
-
       <div className='row justify-content-center mt-5'>
         <div className='col-md-5 mt-5'>
           {success.length > 0 && <Success msg={success}></Success>}
-          <div className='bs'>
+          <form className='bs' onSubmit={register}>
             <h2>Register</h2>
             <input
               type='text'
@@ -77,11 +76,10 @@ function RegisterScreen() {
               }}
             />
             <input
-              type='text'
+              type='email'
               className='form-control'
               placeholder='email'
               required
-              autoComplete='off'
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value)
@@ -99,7 +97,7 @@ function RegisterScreen() {
               }}
             />
             <input
-              type='text'
+              type='password'
               className='form-control'
               placeholder='password'
               required
@@ -110,7 +108,7 @@ function RegisterScreen() {
               }}
             />
             <input
-              type='text'
+              type='password'
               className='form-control'
               placeholder='confirm password'
               required
@@ -123,11 +121,11 @@ function RegisterScreen() {
             {loading ? (
               <div>Registering... Please Wait...</div>
             ) : (
-              <button className='btn btn-primary mt-3' onClick={register}>
+              <button className='btn btn-primary mt-3' type='submit'>
                 Register
               </button>
             )}
-          </div>
+          </form>
         </div>
       </div>
     </div>

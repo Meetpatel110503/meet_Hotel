@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 const { room, getAllrooms } = require("../controller/roomController")
 
-router.get("/getroombyid", room)
+router.post("/getroombyid/", room)
 
 router.get("/getallrooms", getAllrooms)
 

@@ -5,7 +5,7 @@ const room = async (req, res) => {
     const roomid = req.body.roomid
     console.log(roomid)
     const room = await Room.findOne({ _id: roomid })
-    res.send(room)
+    return res.status(200).json({ message: "room found", room: room })
   } catch (error) {
     return res.status(400).json({ message: error })
   }

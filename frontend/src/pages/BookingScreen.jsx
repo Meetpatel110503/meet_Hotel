@@ -1,22 +1,38 @@
 import Loader from "../components/Loading"
 import Error from "../components/Error"
 import { useEffect, useState } from "react"
+import axios from "axios"
+import moment from "moment"
+import { useNavigate, useParams } from "react-router-dom"
 
-const BookingScreen = ({ match }) => {
+const BookingScreen = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
-  const [room, setRooms] = useState({})
-  const roomid = match.params.roomid
-  console.log(roomid)
+  const [room, setRoom] = useState({})
+  const [totalAmount, setTotalAmount] = useState(0)
+  const [totalDays, setTotalDays] = useState(0)
+  const navigate = useNavigate()
+  const params = useParams()
+  console.log(params)
+  const fromdate = moment(params.fromdate, "DD-MM-YYYY")
+  const todate = moment(params.todate, "DD-MM-YYYY")
+
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("currentUser"))
+    if (!user) {
+      navigate("/login")
+    }
     async function fetchMyAPI() {
       try {
         setError("")
         setLoading(true)
-        const response = await axios.get(
-          "http://localhost:5000/api/rooms/getroombyid"
+        const response = await axios.post(
+          `http://localhost:5000/api/rooms/getroombyid`,
+          {
+            roomid: params.roomid,
+          }
         )
-        setRooms(response.data)
+        setRoom(response.data.room)
       } catch (error) {
         setError(error)
         console.log(error)
@@ -27,6 +43,35 @@ const BookingScreen = ({ match }) => {
     // eslint-disable-next-line
   }, [])
   console.log(room)
+  console.log(params.fromdate)
+  console.log(room)
+
+  useEffect(() => {
+    const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1
+    setTotalDays(totaldays)
+    setTotalAmount(totalDays * room.rentperday)
+  }, [room])
+
+  const bookroom = async () => {
+    const bookingDetails = {
+      room,
+      roomid: room.id,
+      userid: JSON.parse(localStorage.getItem("currentUser"))._id,
+      fromdate,
+      todate,
+      totalAmount,
+      totaldays: totalDays,
+      transactionid: "123",
+    }
+    try {
+      const result = await axios.post(
+        "http://localhost:5000/api/bookings/bookroom",
+        bookingDetails
+      )
+    } catch (error) {
+      setError(error)
+    }
+  }
 
   return (
     <>
@@ -46,12 +91,9 @@ const BookingScreen = ({ match }) => {
                 <h1>Booking Details</h1>
                 <hr />
                 <b>
-                  <p>
-                    Name :{" "}
-                    {JSON.parse(localStorage.getItem("currentUser")).name}
-                  </p>
-                  <p>From Date : {match.params.fromdate}</p>
-                  <p>To Date : {match.params.todate}</p>
+                  <p></p>
+                  <p>From Date :{params.fromdate} </p>
+                  <p>To Date : {params.todate}</p>
                   <p>Max Count : {room.maxcount}</p>
                 </b>
               </div>
@@ -59,13 +101,16 @@ const BookingScreen = ({ match }) => {
                 <h1>Amount</h1>
                 <hr />
                 <b>
-                  <p>Total Days : {totalDays}</p>
+                  <p>Total Days :{totalDays}</p>
                   <p>Rent per day : {room.rentperday}</p>
-                  <p>Total Amount : {totalAmount}</p>
+                  <p>Total Amount :{totalAmount} </p>
                 </b>
               </div>
-
-              <div style={{ float: "right" }}></div>
+            </div>
+            <div style={{ float: "left" }}>
+              <button className='btn btn-primary' onClick={bookroom}>
+                Pay Now
+              </button>
             </div>
           </div>
         )}

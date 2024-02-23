@@ -24,7 +24,7 @@ function LoginScreen() {
         user
       )
       console.log(response)
-      //localStorage.setItem("currentUser", JSON.stringify(result))
+      localStorage.setItem("currentUser", JSON.stringify(response))
       navigate("/home")
     } catch (error) {
       console.log(error)
@@ -43,7 +43,7 @@ function LoginScreen() {
             <h2>Login</h2>
 
             <input
-              type='text'
+              type='email'
               className='form-control'
               placeholder='email'
               required

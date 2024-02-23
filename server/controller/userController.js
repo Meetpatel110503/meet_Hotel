@@ -6,11 +6,7 @@ const jwt = require("jsonwebtoken")
 
 const home = async (req, res) => {
   try {
-    res
-      .status(200)
-      .send(
-        "Welcome to world best mern series by thapa technical using router "
-      )
+    res.status(200).send("Welcome to world best hotel ")
   } catch (error) {
     console.log(error)
   }
@@ -18,6 +14,8 @@ const home = async (req, res) => {
 
 const register = async (req, res, next) => {
   try {
+    const user = await User.findOne({ email: req.body.email })
+    if (user) return next(createError(303, "email already exists."))
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(req.body.password, salt)
 
@@ -35,15 +33,16 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const user = await User.findOne({ name: req.body.name })
+    const user = await User.findOne({ email: req.body.email })
     if (!user) return next(createError(404, "User not found!"))
 
     const isPasswordCorrect = await bcrypt.compare(
       req.body.password,
       user.password
     )
-    if (!isPasswordCorrect)
-      return next(createError(400, "Wrong password or username!"))
+    if (!isPasswordCorrect) {
+      return next(createError(400, "Wrong password or email!"))
+    }
 
     const token = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
