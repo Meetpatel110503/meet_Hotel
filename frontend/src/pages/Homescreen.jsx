@@ -10,7 +10,7 @@ function Homescreen() {
   const [loading, setLoading] = useState(true)
   const [rooms, setRooms] = useState([])
   const [error, setError] = useState("")
-  const [fromDate, setFromDate] = useState()
+  const [fromDate, setFromDate] = useState(new Date())
   const [toDate, setToDate] = useState()
   const [duplicateRooms, setDuplicateRooms] = useState([])
   const [searchKey, setSearchKey] = useState("")
@@ -79,16 +79,37 @@ function Homescreen() {
       // setRooms(tempRooms)
     } catch (error) {}
   }
+
+  function filterBySearch() {
+    const tempRooms = duplicateRooms.filter((x) =>
+      x.name.toLowerCase().includes(searchKey.toLowerCase())
+    );
+    setRooms(tempRooms);
+  }
+  function filterByType(type) {
+    setType(type);
+    console.log(type);
+    if (type !== "all") {
+      const tempRooms = duplicateRooms.filter(
+        (x) => x.type.toLowerCase() == type.toLowerCase()
+      );
+      setRooms(tempRooms);
+    } else {
+      setRooms(duplicateRooms);
+    }
+  }
+
+  
   return (
     <>
       {/* <h1>rooms {rooms && rooms.length > 0 && <>{rooms.length}</>}</h1> */}
       <div className='container'>
         <div className='row mt-5 bs'>
           <div className='col-md-3'>
-            <RangePicker format='DD-MM-YYYY' onChange={filterByDate} />
+            <RangePicker format='DD-MM-YYYY' onChange={filterByDate} selected={moment().toDate()} />
           </div>
 
-          {/* <div className='col-md-5'>
+          <div className='col-md-5'>
             <input
               type='text'
               className='form-control'
@@ -112,7 +133,7 @@ function Homescreen() {
               <option value='delux'>Delux</option>
               <option value='non-delux'>Non-Delux</option>
             </select>
-          </div> */}
+          </div>
         </div>
         <div className='row justify-content-center mt-5'>
           {loading ? (

@@ -19,9 +19,14 @@ function Navbar() {
         {user ? (
           <ul class='navbar-nav'>
             <li class='nav-item active'>
-              <button class='nav-link' onClick={Logout}>
+              <Link class='nav-link' onClick={Logout}>
                 Logout
-              </button>
+              </Link>
+            </li>
+            <li>
+            <Link className="dropdown-item" href="/profile">
+                Profile
+            </Link>
             </li>
           </ul>
         ) : (

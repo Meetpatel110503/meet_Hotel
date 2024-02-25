@@ -6,48 +6,13 @@ const router = express.Router()
 
 const Booking = require("../models/booking")
 const Room = require("../models/room")
+const {getallbookings,cancelbooking,getbookingbyuserid}=require("../controller/bookingController")
 
-router.post("/getallbookings", async (req, res) => {
-  try {
-    const bookings = await Booking.find()
-    res.send(bookings)
-  } catch (error) {
-    console.log(error)
-    return res.status(400).json({ message: error })
-  }
-})
+router.post("/getallbookings",getallbookings)
 
-router.post("/cancelbooking", async (req, res) => {
-  const { bookingid, roomid } = req.body
-  try {
-    const booking = await Booking.findOne({ _id: bookingid })
+router.post("/cancelbooking",cancelbooking)
 
-    booking.status = "cancelled"
-    await booking.save()
-    const room = await Room.findOne({ _id: roomid })
-    const bookings = room.currentbookings
-    const temp = bookings.filter((x) => x.bookingid.toString() !== bookingid)
-    room.currentbookings = temp
-    await room.save()
-
-    res.send("Your booking cancelled successfully")
-  } catch (error) {
-    console.log(error)
-    return res.status(400).json({ message: error })
-  }
-})
-
-router.post("/getbookingbyuserid", async (req, res) => {
-  const { userid } = req.body
-  try {
-    const bookings = await Booking.find({ userid: userid })
-
-    res.send(bookings)
-  } catch (error) {
-    console.log(error)
-    return res.status(400).json({ message: error })
-  }
-})
+router.post("/getbookingbyuserid",getbookingbyuserid )
 
 // router.post("/bookroom", async (req, res) => {
 //   try {
