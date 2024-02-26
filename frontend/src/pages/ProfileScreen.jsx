@@ -1,51 +1,52 @@
-import React, { useState, useEffect } from "react";
-import { Tabs } from "antd";
-import { Tag } from "antd";
+import React, { useState, useEffect } from "react"
+import { Tabs } from "antd"
+import { Tag } from "antd"
+import { useNavigate } from "react-router-dom"
+import MyBookingScreen from "./MybookingScreen"
 
-//import MyBookingScreen from "./MyBookingScreen";
-const { TabPane } = Tabs;
+const { TabPane } = Tabs
 
 function ProfileScreen() {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
-
+  const navigate = useNavigate()
+  const user = JSON.parse(localStorage.getItem("currentUser"))
+  console.log(user.data.isAdmin)
   useEffect(() => {
     if (!user) {
-      window.location.href = "/login";
+      navigate("/login")
     }
-  }, []);
+  }, [])
 
   function callback(key) {
-    console.log(key);
+    console.log(key)
   }
 
   return (
-    <div className="ml-3 mt-3">
-      <Tabs defaultActiveKey="1" onChange={callback}>
-        <TabPane tab="Profile" key="1">
-          <div className="row">
-            <div className="col-xs-12 ml-5 mb-5">
-              <div className="bs">
+    <div className='ml-3 mt-3'>
+      <Tabs defaultActiveKey='1' onChange={callback}>
+        <TabPane tab='Profile' key='1'>
+          <div className='row'>
+            <div className='col-xs-12 ml-5 mb-5'>
+              <div className='bs'>
                 <p>My Profile</p>
-                <p>Name : {user.name}</p>
-                <p>Email : {user.email}</p>
+                <p>Email : {JSON.parse(user.config.data).email}</p>
                 <p>
                   IsAdmin :{" "}
-                  {user.isAdmin ? (
-                    <Tag color="green">YES</Tag>
+                  {user.data.isAdmin ? (
+                    <Tag color='green'>YES</Tag>
                   ) : (
-                    <Tag color="red">NO</Tag>
+                    <Tag color='red'>NO</Tag>
                   )}
                 </p>
               </div>
             </div>
           </div>
         </TabPane>
-        {/* <TabPane tab="Booking" key="2">
-          <MyBookingScreen></MyBookingScreen>
-        </TabPane> */}
+        <TabPane tab='Booking' key='2'>
+          <MyBookingScreen />
+        </TabPane>
       </Tabs>
     </div>
-  );
+  )
 }
 
-export default ProfileScreen;
+export default ProfileScreen

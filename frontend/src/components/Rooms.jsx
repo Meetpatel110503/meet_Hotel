@@ -24,15 +24,13 @@ function Room({ room, fromDate, toDate }) {
             <p>Type : {room.type}</p>
           </b>
           <div style={{ float: "right" }}>
-            {/* {console.log(room._id)} */}
+        
             {fromDate && toDate && (
               <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
                 <button className='btn btn-primary m-2'>Book Now</button>
               </Link>
             )}
-            {/* {console.log(fromDate)}
-            {console.log(toDate)} */}
-            {/* {console.log(room._id)} */}
+         
             <button className='btn btn-primary' onClick={handleShow}>
               View Detail
             </button>

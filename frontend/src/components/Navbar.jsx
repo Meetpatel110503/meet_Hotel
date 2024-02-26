@@ -2,13 +2,15 @@ import React from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-function Navbar() {
+function Navbar1() {
   const navigate = useNavigate()
   const user = JSON.parse(localStorage.getItem("currentUser"))
 
   function Logout() {
     localStorage.removeItem("currentUser")
+
     navigate("/login")
+    window.location.reload()
   }
   return (
     <>
@@ -23,10 +25,10 @@ function Navbar() {
                 Logout
               </Link>
             </li>
-            <li>
-            <Link className="dropdown-item" href="/profile">
+            <li class='nav-item active'>
+              <Link class='nav-link' to='/profile'>
                 Profile
-            </Link>
+              </Link>
             </li>
           </ul>
         ) : (
@@ -48,4 +50,4 @@ function Navbar() {
   )
 }
 
-export default Navbar
+export default Navbar1

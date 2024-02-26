@@ -23,8 +23,12 @@ function LoginScreen() {
         "http://localhost:5000/api/users/login",
         user
       )
-      console.log(response)
+      console.log("login data", response.data.isAdmin)
       localStorage.setItem("currentUser", JSON.stringify(response))
+      if (response.data.isAdmin) {
+        navigate("/admin")
+        window.location.reload()
+      }
       navigate("/home")
     } catch (error) {
       console.log(error)

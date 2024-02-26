@@ -69,4 +69,17 @@ const getAllUser = async (req, res) => {
     return res.status(400).json({ message: error })
   }
 }
-module.exports = { home, register, login, getAllUser }
+const deleteuser = async (req, res) => {
+  const { id } = req.params
+  try {
+    const deletedUser = await User.findByIdAndDelete(id)
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" })
+    }
+    return res.json({ message: "User deleted successfully" })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: "Internal Server Error" })
+  }
+}
+module.exports = { home, register, login, getAllUser, deleteuser }

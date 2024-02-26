@@ -9,10 +9,10 @@ import moment from "moment"
 function Homescreen() {
   const [loading, setLoading] = useState(true)
   const [rooms, setRooms] = useState([])
+  const [filterRooms, setFilterRooms] = useState([])
   const [error, setError] = useState("")
-  const [fromDate, setFromDate] = useState(new Date())
+  const [fromDate, setFromDate] = useState(moment().toDate())
   const [toDate, setToDate] = useState()
-  const [duplicateRooms, setDuplicateRooms] = useState([])
   const [searchKey, setSearchKey] = useState("")
   const [type, setType] = useState("all")
 
@@ -21,11 +21,12 @@ function Homescreen() {
       try {
         setError("")
         setLoading(true)
-        const response = await axios.get(
-          "http://localhost:5000/api/rooms/getallrooms"
-        )
-        setRooms(response.data)
-        //console.log(response.data)
+        const response = (
+          await axios.get("http://localhost:5000/api/rooms/getallrooms")
+        ).data
+        setRooms(response)
+        setFilterRooms(response)
+        console.log(response)
       } catch (error) {
         setError(error)
         console.log(error)
@@ -35,7 +36,7 @@ function Homescreen() {
     fetchMyAPI()
     // eslint-disable-next-line
   }, [])
-  console.log(rooms)
+  //console.log(response.rooms)
 
   function filterByDate(dates) {
     console.log(dates)
@@ -45,68 +46,44 @@ function Homescreen() {
     try {
       setFromDate(moment(dates[0].$d).format("DD-MM-YYYY"))
       setToDate(moment(dates[1].$d).format("DD-MM-YYYY"))
-
-      // var tempRooms = []
-      // for (const room of duplicateRooms) {
-      //   var availability = false
-      //   if (room.currentbookings.length > 0) {
-      //     for (const booking of room.currentbookings) {
-      //       if (
-      //         !moment(moment(dates[0].$d).format("DD-MM-YYYY")).isBetween(
-      //           booking.fromdate,
-      //           booking.todate
-      //         ) &&
-      //         !moment(moment(dates[1].$d).format("DD-MM-YYYY")).isBetween(
-      //           booking.fromdate,
-      //           booking.todate
-      //         )
-      //       ) {
-      //         if (
-      //           moment(dates[0].$d).format("DD-MM-YYYY") !== booking.fromdate &&
-      //           moment(dates[0].$d).format("DD-MM-YYYY") !== booking.todate &&
-      //           moment(dates[1]).$d.format("DD-MM-YYYY") !== booking.fromdate &&
-      //           moment(dates[1]).$d.format("DD-MM-YYYY") !== booking.todate
-      //         ) {
-      //           availability = true
-      //         }
-      //       }
-      //     }
-      //   }
-      //   if (availability == true || room.currentbookings.length == 0) {
-      //     tempRooms.push(room)
-      //   }
-      // }
-      // setRooms(tempRooms)
     } catch (error) {}
   }
 
   function filterBySearch() {
-    const tempRooms = duplicateRooms.filter((x) =>
+    const tempRooms = rooms.filter((x) =>
       x.name.toLowerCase().includes(searchKey.toLowerCase())
-    );
-    setRooms(tempRooms);
+    )
+    setFilterRooms(tempRooms)
   }
   function filterByType(type) {
-    setType(type);
-    console.log(type);
+    setType(type)
+    console.log(type)
     if (type !== "all") {
-      const tempRooms = duplicateRooms.filter(
+      const tempRooms = rooms.filter(
         (x) => x.type.toLowerCase() == type.toLowerCase()
-      );
-      setRooms(tempRooms);
+      )
+      setFilterRooms(tempRooms)
     } else {
-      setRooms(duplicateRooms);
+      setFilterRooms(rooms)
     }
   }
 
-  
+  function disabledDate(current) {
+    // Can not select days before today
+    return current && current < moment().startOf("day")
+  }
+
   return (
     <>
       {/* <h1>rooms {rooms && rooms.length > 0 && <>{rooms.length}</>}</h1> */}
       <div className='container'>
         <div className='row mt-5 bs'>
           <div className='col-md-3'>
-            <RangePicker format='DD-MM-YYYY' onChange={filterByDate} selected={moment().toDate()} />
+            <RangePicker
+              format='DD-MM-YYYY'
+              onChange={filterByDate}
+              disabledDate={disabledDate} // Disable past dates
+            />
           </div>
 
           <div className='col-md-5'>
@@ -116,7 +93,7 @@ function Homescreen() {
               placeholder='search rooms'
               value={searchKey}
               onChange={(e) => {
-                setSearchKey(e.target.value)
+                setSearchKey(e.target.value.toLocaleLowerCase())
               }}
               onKeyUp={filterBySearch}
             />
@@ -129,7 +106,7 @@ function Homescreen() {
                 filterByType(e.target.value)
               }}
             >
-              <option value='all'>All</option>
+              <option value='all'>all</option>
               <option value='delux'>Delux</option>
               <option value='non-delux'>Non-Delux</option>
             </select>
@@ -138,12 +115,10 @@ function Homescreen() {
         <div className='row justify-content-center mt-5'>
           {loading ? (
             <Loader></Loader>
-          ) : error.length > 0 ? (
-            <Error msg={error}></Error>
           ) : (
             rooms &&
             rooms.length > 0 &&
-            rooms?.map((x, i) => {
+            filterRooms?.map((x, i) => {
               return (
                 <div className='col-md-9 mt-3' data-aos='flip-down'>
                   <Rooms room={x} key={i} fromDate={fromDate} toDate={toDate} />

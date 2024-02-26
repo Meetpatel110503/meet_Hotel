@@ -11,6 +11,7 @@ import ErrorPage from "./pages/Error"
 import Navbar1 from "./components/Navbar"
 import ProfileScreen from "./pages/ProfileScreen"
 import LandingScreen from "./pages/LandingScreen"
+import AdminScreen from "./pages/AdminScreen"
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         />
         <Route path='*' element={<ErrorPage />} />
         <Route path='/profile' element={<ProfileScreen />} />
+        <Route path='/admin' element={<AdminScreen />} />
       </Routes>
       <ToastContainer />
     </div>

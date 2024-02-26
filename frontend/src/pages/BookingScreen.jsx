@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import moment from "moment"
 import { useNavigate, useParams } from "react-router-dom"
+import { toast } from "react-toastify"
 
 const BookingScreen = () => {
   const [loading, setLoading] = useState(true)
@@ -53,10 +54,12 @@ const BookingScreen = () => {
   }, [room])
 
   const bookroom = async () => {
+    console.log(
+      JSON.parse(localStorage.getItem("currentUser")).data.details._id
+    )
     const bookingDetails = {
       room,
-      roomid: room.id,
-      userid: JSON.parse(localStorage.getItem("currentUser"))._id,
+      userid: JSON.parse(localStorage.getItem("currentUser")).data.details._id,
       fromdate,
       todate,
       totalAmount,
@@ -68,6 +71,11 @@ const BookingScreen = () => {
         "http://localhost:5000/api/bookings/bookroom",
         bookingDetails
       )
+      console.log(result.data.booking)
+      if (result.data.booking) {
+        navigate("/home")
+      }
+      toast.success("room booked successfully")
     } catch (error) {
       setError(error)
     }
@@ -91,7 +99,6 @@ const BookingScreen = () => {
                 <h1>Booking Details</h1>
                 <hr />
                 <b>
-                  <p></p>
                   <p>From Date :{params.fromdate} </p>
                   <p>To Date : {params.todate}</p>
                   <p>Max Count : {room.maxcount}</p>
