@@ -30,7 +30,18 @@ function App() {
         <Route path='/profile' element={<ProfileScreen />} />
         <Route path='/admin' element={<AdminScreen />} />
       </Routes>
-      <ToastContainer />
+      <ToastContainer
+        position='top-center'
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='colored'
+      />
     </div>
   )
 }

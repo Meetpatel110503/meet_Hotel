@@ -36,11 +36,11 @@ function RegisterScreen() {
           "http://localhost:5000/api/users/register",
           user
         )
-        //localStorage.setItem("currentUser", JSON.stringify(response))
+        // localStorage.setItem("currentUser", JSON.stringify(response))
         console.log(response.data)
         toast.success("Registartion successfull.")
         setSuccess(response)
-        navigate("/home")
+        navigate("/login")
         setName("")
         setEmail("")
         setPhone("")

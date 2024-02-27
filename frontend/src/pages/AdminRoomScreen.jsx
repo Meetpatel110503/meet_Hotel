@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { Table, Tag, Space } from "antd"
-
+import { Table, Tag, Space, Button } from "antd"
+import { ToastContainer, toast } from "react-toastify"
 import Loader from "../components/Loading"
 import Error from "../components/Error"
 
@@ -25,6 +25,17 @@ function AdminRoomScreen() {
     { title: "phonenumber", dataIndex: "phonenumber", key: "phonenumber" },
     { title: "rentperday", dataIndex: "rentperday", key: "rentperday" },
     { title: "type", dataIndex: "type", key: "type" },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => (
+        <Space size='middle'>
+          <Button onClick={() => deleteRoom(record._id)} type='danger'>
+            Delete
+          </Button>
+        </Space>
+      ),
+    },
   ]
 
   async function fetchMyData() {
@@ -41,6 +52,17 @@ function AdminRoomScreen() {
       setError(error)
     }
     setLoading(false)
+  }
+
+  async function deleteRoom(roomId) {
+    try {
+      await axios.delete(`http://localhost:5000/api/rooms/deleteroom/${roomId}`)
+      fetchMyData()
+      toast.success("room deleted successfullly.") // Refresh data after deletion
+    } catch (error) {
+      console.log(error)
+      setError(error.message)
+    }
   }
 
   useEffect(() => {

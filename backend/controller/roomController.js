@@ -50,4 +50,29 @@ const addroom = async (req, res) => {
   }
 }
 
-module.exports = { room, getAllrooms, addroom }
+const deleteroom = async (req, res) => {
+  try {
+    const roomId = req.params.id
+    await Room.findByIdAndDelete(roomId)
+    res.status(200).send("Room deleted successfully.")
+  } catch (error) {
+    return res.status(400).json({ message: error })
+  }
+}
+
+const updateroom = async (req, res) => {
+  try {
+    const roomId = req.params.id
+    const updatedRoomData = req.body
+    const updatedRoom = await Room.findByIdAndUpdate(roomId, updatedRoomData, {
+      new: true,
+    })
+    res
+      .status(200)
+      .json({ message: "Room updated successfully", room: updatedRoom })
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+}
+
+module.exports = { room, getAllrooms, addroom, deleteroom, updateroom }

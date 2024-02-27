@@ -4,9 +4,9 @@ const {
   register,
   login,
   getAllUser,
-  deleteuser,
+  deleteUser,
 } = require("../controller/userController")
-const verifyAdmin = require("../utils/verifyToken")
+const { verifyAdmin } = require("../utils/verifyToken")
 
 router.post("/register", register)
 
@@ -14,6 +14,6 @@ router.post("/login", login)
 
 router.post("/getallusers", getAllUser)
 
-router.post("/deleteuser/:id", deleteuser)
+router.delete("/deleteuser/:id", deleteUser)
 
 module.exports = router

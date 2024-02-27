@@ -8,14 +8,13 @@ function Navbar1() {
 
   function Logout() {
     localStorage.removeItem("currentUser")
-
     navigate("/login")
-    window.location.reload()
+    //window.location.reload()
   }
   return (
     <>
       <nav class='navbar navbar-expand-lg navbar-light bg-dark'>
-        <Link class='navbar-brand' to='/home'>
+        <Link class='navbar-brand' to='/'>
           MEET HOTEL
         </Link>
         {user ? (
