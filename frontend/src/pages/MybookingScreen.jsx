@@ -12,7 +12,7 @@ function MyBookingScreen() {
   const [error, setError] = useState("")
   const params = useParams()
   const user = JSON.parse(localStorage.getItem("currentUser"))
-  console.log(user.data.details._id)
+
   async function fetchMyAPI() {
     setError("")
     setLoading(true)
@@ -21,20 +21,17 @@ function MyBookingScreen() {
         await axios.post(
           "http://localhost:5000/api/bookings/getbookingbyuserid",
           {
-            userid: user.data.details._id,
+            userid: user.details._id,
           }
         )
       ).data
-      //console.log(user._id)
       setBookings(response)
       console.log(response)
     } catch (error) {
-      console.log(error)
       setError(error)
     }
     setLoading(false)
   }
-  console.log(bookings)
 
   async function cancelBooking(bookingid, roomid) {
     setError("")
@@ -49,8 +46,7 @@ function MyBookingScreen() {
       setLoading(false)
       fetchMyAPI()
     } catch (error) {
-      console.log(error)
-      //setError(error);
+      setError(error)
     }
     setLoading(false)
   }

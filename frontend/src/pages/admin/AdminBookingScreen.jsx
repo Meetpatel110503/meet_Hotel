@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { Table, Tag, Space } from "antd"
 
-import Loader from "../components/Loading"
-import Error from "../components/Error"
+import Loader from "../../components/Loading"
+import Error from "../../components/Error"
 
 function AdminBookingScreen() {
   const [bookings, setBookings] = useState([])

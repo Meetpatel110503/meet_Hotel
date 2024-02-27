@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { Table, Tag, Space, Button } from "antd"
-import { ToastContainer, toast } from "react-toastify"
-import Loader from "../components/Loading"
-import Error from "../components/Error"
+import { toast } from "react-toastify"
+import Loader from "../../components/Loading"
+import Error from "../../components/Error"
 import { useParams } from "react-router-dom"
 
 function AdminUserScreen() {
@@ -12,8 +12,6 @@ function AdminUserScreen() {
   const [error, setError] = useState("")
   const params = useParams()
   const user = JSON.parse(localStorage.getItem("currentUser"))
-  console.log(user.data.details._id)
-  const id = user.data.details._id
 
   const columns = [
     { title: "userid", dataIndex: "_id", key: "_id" },
@@ -60,7 +58,6 @@ function AdminUserScreen() {
       ).data
       setUsers(response)
     } catch (error) {
-      console.log(error)
       setError(error)
     }
     setLoading(false)
@@ -72,7 +69,6 @@ function AdminUserScreen() {
       fetchMyData()
       toast.success("user deleted successfully.") // Refresh data after deletion
     } catch (error) {
-      console.log(error)
       setError(error.message)
     }
   }

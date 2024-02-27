@@ -14,7 +14,6 @@ const BookingScreen = () => {
   const [totalDays, setTotalDays] = useState(0)
   const navigate = useNavigate()
   const params = useParams()
-  console.log(params)
   const fromdate = moment(params.fromdate, "DD-MM-YYYY")
   const todate = moment(params.todate, "DD-MM-YYYY")
 
@@ -36,16 +35,11 @@ const BookingScreen = () => {
         setRoom(response.data.room)
       } catch (error) {
         setError(error)
-        console.log(error)
       }
       setLoading(false)
     }
     fetchMyAPI()
-    // eslint-disable-next-line
   }, [])
-  console.log(room)
-  console.log(params.fromdate)
-  console.log(room)
 
   useEffect(() => {
     const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1
@@ -54,24 +48,19 @@ const BookingScreen = () => {
   }, [room])
 
   const bookroom = async () => {
-    console.log(
-      JSON.parse(localStorage.getItem("currentUser")).data.details._id
-    )
     const bookingDetails = {
       room,
-      userid: JSON.parse(localStorage.getItem("currentUser")).data.details._id,
+      userid: JSON.parse(localStorage.getItem("currentUser")).details._id,
       fromdate,
       todate,
       totalAmount,
       totaldays: totalDays,
-      transactionid: "123",
     }
     try {
       const result = await axios.post(
         "http://localhost:5000/api/bookings/bookroom",
         bookingDetails
       )
-      console.log(result.data.booking)
       if (result.data.booking) {
         navigate("/home")
       }

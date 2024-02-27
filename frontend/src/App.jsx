@@ -1,22 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import "./App.css"
-import Navbar from "./components/Navbar"
+import Navbar from "./pages/Navbar"
 import Homescreen from "./pages/Homescreen"
-import RegisterScreen from "./pages/RegistrationScreen"
-import { ToastContainer, toast } from "react-toastify"
+import RegisterScreen from "./pages/auth/RegistrationScreen"
+import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import LoginScreen from "./pages/LoginScreen"
+import LoginScreen from "./pages/auth/LoginScreen"
 import BookingScreen from "./pages/BookingScreen"
 import ErrorPage from "./pages/Error"
-import Navbar1 from "./components/Navbar"
 import ProfileScreen from "./pages/ProfileScreen"
 import LandingScreen from "./pages/LandingScreen"
-import AdminScreen from "./pages/AdminScreen"
+import AdminScreen from "./pages/admin/AdminScreen"
 
 function App() {
   return (
     <div className='App'>
-      <Navbar1 />
+      <Navbar />
       <Routes>
         <Route path='/' element={<LandingScreen />} />
         <Route path='/home' element={<Homescreen />} />

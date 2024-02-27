@@ -48,16 +48,16 @@ const getbookingbyuserid = async (req, res) => {
 
 const bookroom = async (req, res) => {
   const { room, userid, fromdate, todate, totalamount, totaldays } = req.body
+  console.log(room, userid, fromdate, todate, totalamount, totaldays );
   try {
     const newBooking = new Booking({
-      room: room.name,
+      roomName: room.name,
       roomid: room._id,
       userid: userid,
       fromdate: moment(fromdate).format("DD-MM-YYYY"),
       todate: moment(todate).format("DD-MM-YYYY"),
       totalamount: "89999",
       totaldays: "9",
-      transactionid: "878",
     })
     // console.log(newBooking)
     const booking = await newBooking.save()
@@ -73,7 +73,7 @@ const bookroom = async (req, res) => {
     })
 
     const currentbookings = await roomTmp.save()
-    //console.log(roomTmp.currentbookings)
+    console.log(currentbookings)
     res.send({ booking: true })
   } catch (e) {
     console.log(e)

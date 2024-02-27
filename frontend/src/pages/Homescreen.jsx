@@ -26,23 +26,15 @@ function Homescreen() {
         ).data
         setRooms(response)
         setFilterRooms(response)
-        console.log(response)
       } catch (error) {
         setError(error)
-        console.log(error)
       }
       setLoading(false)
     }
     fetchMyAPI()
-    // eslint-disable-next-line
   }, [])
-  //console.log(response.rooms)
 
   function filterByDate(dates) {
-    console.log(dates)
-    console.log(moment(dates[0].$d).format("DD-MM-YYYY"))
-    console.log(moment(dates[1].$d).format("DD-MM-YYYY"))
-
     try {
       setFromDate(moment(dates[0].$d).format("DD-MM-YYYY"))
       setToDate(moment(dates[1].$d).format("DD-MM-YYYY"))
@@ -57,7 +49,6 @@ function Homescreen() {
   }
   function filterByType(type) {
     setType(type)
-    console.log(type)
     if (type !== "all") {
       const tempRooms = rooms.filter(
         (x) => x.type.toLowerCase() == type.toLowerCase()
@@ -69,20 +60,18 @@ function Homescreen() {
   }
 
   function disabledDate(current) {
-    // Can not select days before today
     return current && current < moment().startOf("day")
   }
 
   return (
     <>
-      {/* <h1>rooms {rooms && rooms.length > 0 && <>{rooms.length}</>}</h1> */}
       <div className='container'>
         <div className='row mt-5 bs'>
           <div className='col-md-3'>
             <RangePicker
               format='DD-MM-YYYY'
               onChange={filterByDate}
-              disabledDate={disabledDate} // Disable past dates
+              disabledDate={disabledDate}
             />
           </div>
 
@@ -118,10 +107,10 @@ function Homescreen() {
           ) : (
             rooms &&
             rooms.length > 0 &&
-            filterRooms?.map((x, i) => {
+            filterRooms?.map((x, id) => {
               return (
-                <div className='col-md-9 mt-3' data-aos='flip-down'>
-                  <Rooms room={x} key={i} fromDate={fromDate} toDate={toDate} />
+                <div className='col-md-9 mt-3' data-aos='flip-down' key={id}>
+                  <Rooms room={x}  fromDate={fromDate} toDate={toDate} />
                 </div>
               )
             })

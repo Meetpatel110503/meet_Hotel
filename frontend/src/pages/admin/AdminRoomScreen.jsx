@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { Table, Tag, Space, Button } from "antd"
-import { ToastContainer, toast } from "react-toastify"
-import Loader from "../components/Loading"
-import Error from "../components/Error"
+import { Table, Space, Button } from "antd"
+import { toast } from "react-toastify"
+import Loader from "../../components/Loading"
+import Error from "../../components/Error"
 
 function AdminRoomScreen() {
   const [rooms, setRooms] = useState([])
@@ -46,9 +46,7 @@ function AdminRoomScreen() {
         await axios.get("http://localhost:5000/api/rooms/getallrooms")
       ).data
       setRooms(response)
-      console.log(response)
     } catch (error) {
-      console.log(error)
       setError(error)
     }
     setLoading(false)
@@ -60,7 +58,6 @@ function AdminRoomScreen() {
       fetchMyData()
       toast.success("room deleted successfullly.") // Refresh data after deletion
     } catch (error) {
-      console.log(error)
       setError(error.message)
     }
   }

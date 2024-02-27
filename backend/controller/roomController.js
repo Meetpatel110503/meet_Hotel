@@ -26,6 +26,7 @@ const addroom = async (req, res) => {
     console.log(req.body)
     const room = new Room()
     room.name = newRoom.name
+    room.roomNumber = newRoom.roomNumber
     room.maxcount = newRoom.maxcount
     room.phonenumber = newRoom.phonenumber
     room.rentperday = newRoom.rentperday

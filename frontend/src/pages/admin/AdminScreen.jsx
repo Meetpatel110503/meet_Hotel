@@ -15,11 +15,10 @@ function AdminScreen() {
   const user = JSON.parse(localStorage.getItem("currentUser"))
 
   useEffect(() => {
-    if (!user || user.data.isAdmin == false) {
+    if (!user) {
       navigate("/home")
-    } 
+    }
   }, [])
-  console.log("admin data", user.data)
 
   return (
     <div className='ml-3 mt-3 mr-3 bs'>
