@@ -14,7 +14,7 @@ app.use("/api/users", usersRoute)
 app.use("/api/bookings", bookingRoute)
 
 const PORT = process.env.PORT || 5000
-app.get("/", (req, res) => res.send("Hello Zignuts!"))
+app.get("/", (req, res) => res.send({'msg' :"Hello Zignuts!"}))
 connectDb().then(() => {
   app.listen(PORT, () => {
     console.log(`server is running at port: ${PORT}`)

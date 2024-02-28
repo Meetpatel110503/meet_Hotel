@@ -9,7 +9,7 @@ function MyBookingScreen() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const user = JSON.parse(localStorage.getItem("currentUser"))
-  console.log(user.details)
+  console.log("user details are ", user)
 
   async function fetchMyAPI() {
     setError("")
@@ -19,7 +19,7 @@ function MyBookingScreen() {
         await axios.get(
           "http://localhost:5000/api/bookings/getbookingbyuserid",
           {
-            userid: user.details._id,
+            userid: user.data.details._id,
           }
         )
       ).data

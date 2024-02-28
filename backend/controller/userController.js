@@ -45,12 +45,12 @@ const login = async (req, res, next) => {
       return next(createError(400, "Wrong password or email!"))
     }
 
-    const { password, isAdmin, ...otherDetails } = user._doc
+    const { password, ...otherDetails } = user._doc
     // Generate JWT token
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: "10h" }
+      { expiresIn: "10d" }
     )
 
     res.status(200).json({

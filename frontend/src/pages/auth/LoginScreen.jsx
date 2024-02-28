@@ -24,7 +24,7 @@ function LoginScreen() {
         data
       )
       localStorage.setItem("currentUser", JSON.stringify(response.data))
-      if (response.data.isAdmin) {
+      if (response.data.details.isAdmin) {
         navigate("/admin")
       } else {
         navigate("/home")

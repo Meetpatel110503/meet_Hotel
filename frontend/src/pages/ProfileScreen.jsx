@@ -9,7 +9,7 @@ const { TabPane } = Tabs
 function ProfileScreen() {
   const navigate = useNavigate()
   const user = JSON.parse(localStorage.getItem("currentUser"))
-  console.log("user is", user)
+
   useEffect(() => {
     if (!user) {
       navigate("/login")
@@ -29,10 +29,10 @@ function ProfileScreen() {
               <div className='bs'>
                 <p>My Profile</p>
                 <p>Email : {user.details.email}</p>
-                <p>Name : {user.details.name}</p>
+                <p>Name : {user.details.username}</p>
                 <p>
                   IsAdmin :{" "}
-                  {user.isAdmin ? (
+                  {user.details.isAdmin ? (
                     <Tag color='green'>YES</Tag>
                   ) : (
                     <Tag color='red'>NO</Tag>
