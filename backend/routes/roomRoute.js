@@ -1,6 +1,6 @@
-const express = require("express")
-const router = express.Router()
-const Room = require("../models/room")
+const npmConstants = require("../Constant.js")
+const router = npmConstants.express.Router()
+
 const {
   room,
   getAllrooms,
@@ -8,15 +8,16 @@ const {
   deleteroom,
   updateroom,
 } = require("../controller/roomController")
+const {verifyToken,verifyUser,verifyAdmin}=require("../middleware/verifyToken")
 
 router.post("/getroombyid/", room)
 
 router.get("/getallrooms", getAllrooms)
 
-router.post("/addroom", addroom)
+router.post("/addroom",verifyAdmin, addroom)
 
-router.delete("/deleteroom/:id", deleteroom)
+router.delete("/deleteroom/:id",verifyAdmin, deleteroom)
 
-router.patch("/updateroom/:id", updateroom)
+router.patch("/updateroom/:id",verifyAdmin, updateroom)
 
 module.exports = router

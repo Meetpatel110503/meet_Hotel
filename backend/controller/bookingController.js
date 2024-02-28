@@ -1,6 +1,4 @@
-const express = require("express")
 const moment = require("moment")
-const router = express.Router()
 const Booking = require("../models/booking")
 const Room = require("../models/room")
 
@@ -48,7 +46,7 @@ const getbookingbyuserid = async (req, res) => {
 
 const bookroom = async (req, res) => {
   const { room, userid, fromdate, todate, totalamount, totaldays } = req.body
-  console.log(room, userid, fromdate, todate, totalamount, totaldays );
+  console.log(room, userid, fromdate, todate, totalamount, totaldays)
   try {
     const newBooking = new Booking({
       roomName: room.name,

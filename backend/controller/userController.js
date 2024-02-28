@@ -1,8 +1,9 @@
+const npmConstants = require("../Constant.js")
 const User = require("../models/user")
-const bcrypt = require("bcryptjs")
-const createError = require("../utils/Error.js")
+const bcrypt = npmConstants.bcrypt;
+const jwt = npmConstants.jwt
+const createError = require("../middleware/Error.js")
 require("dotenv").config()
-const jwt = require("jsonwebtoken")
 
 const home = async (req, res) => {
   try {
@@ -46,10 +47,14 @@ const login = async (req, res, next) => {
 
     const token = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
-      process.env.JWT
+      process.env.JWT,
+      {
+        expiresIn: "30d",
+      }
     )
 
-    const { password, isAdmin, ...otherDetails } = user._doc
+    const { password, isAdmin, ...otherDetails } = user
+    console.log(user)
     res
       .cookie("access_token", token, {
         httpOnly: true,

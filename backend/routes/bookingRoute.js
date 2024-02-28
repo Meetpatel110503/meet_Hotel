@@ -1,9 +1,6 @@
-const express = require("express")
-const moment = require("moment")
-const router = express.Router()
+const npmConstants = require("../Constant.js")
+const router = npmConstants.express.Router()
 
-const Booking = require("../models/booking")
-const Room = require("../models/room")
 const {
   getallbookings,
   cancelbooking,
