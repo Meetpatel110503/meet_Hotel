@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { Tag } from "antd"
-import { useParams } from "react-router-dom"
-
 import Loader from "../components/Loading"
 import Error from "../components/Error"
 
@@ -10,8 +8,8 @@ function MyBookingScreen() {
   const [bookings, setBookings] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
-  const params = useParams()
   const user = JSON.parse(localStorage.getItem("currentUser"))
+  console.log(bookings)
 
   async function fetchMyAPI() {
     setError("")
@@ -21,7 +19,7 @@ function MyBookingScreen() {
         await axios.post(
           "http://localhost:5000/api/bookings/getbookingbyuserid",
           {
-            userid: user.details._id,
+            userid: user.details._doc._id,
           }
         )
       ).data
@@ -64,6 +62,7 @@ function MyBookingScreen() {
       ) : (
         <div className='row justify-content-center'>
           <div className='col-md-6  ml-5'>
+            {/* {console.log(bookings)} */}
             {bookings &&
               bookings.map((booking) => {
                 return (

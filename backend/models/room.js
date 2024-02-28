@@ -10,7 +10,7 @@ const roomSchema = mongoose.Schema(
       type: String,
       unique: true,
     },
-    maxcount: {
+    maxpeople: {
       type: Number,
       required: true,
       default: 1,
@@ -19,7 +19,11 @@ const roomSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    rentperday: {
+    booked: {
+      type: Boolean,
+      default: false
+    },
+    price: {
       type: Number,
       required: true,
     },

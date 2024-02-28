@@ -8,6 +8,7 @@ const {
   getAllUser,
   deleteUser,
 } = require("../controller/userController")
+const {verifyAdmin}=require("../middleware/verifyToken")
 
 router.post("/", home)
 

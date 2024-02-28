@@ -61,10 +61,10 @@ function AdminAddRoomScreen() {
           </Form.Item>
           <Form.Item
             label='Maxpeople'
-            name='maxcount'
+            name='maxpeople'
             rules={[{ required: true, message: "Maxcount is required" }]}
           >
-            <input {...register("maxcount")} />
+            <input {...register("maxpeople")} />
           </Form.Item>
           <Form.Item
             label='Phonenumber'
@@ -75,10 +75,10 @@ function AdminAddRoomScreen() {
           </Form.Item>
           <Form.Item
             label='Rentperday'
-            name='rentperday'
+            name='price'
             rules={[{ required: true, message: "Rentperday is required" }]}
           >
-            <input {...register("rentperday")} min={1} />
+            <input {...register("price")} min={1} />
           </Form.Item>
           <Form.Item
             label='Room Number'

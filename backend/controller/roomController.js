@@ -31,9 +31,9 @@ const addroom = async (req, res) => {
     const room = new Room()
     room.name = newRoom.name
     room.roomNumber = newRoom.roomNumber
-    room.maxcount = newRoom.maxcount
+    room.maxpeople = newRoom.maxpeople
     room.phonenumber = newRoom.phonenumber
-    room.rentperday = newRoom.rentperday
+    room.price = newRoom.price
     room.type = newRoom.type
     room.description = newRoom.description
     room.currentbookings = []

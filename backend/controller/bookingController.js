@@ -5,6 +5,7 @@ const Room = require("../models/room")
 const getallbookings = async (req, res) => {
   try {
     const bookings = await Booking.find()
+    console.log(bookings)
     res.send(bookings)
   } catch (error) {
     console.log(error)
@@ -46,7 +47,7 @@ const getbookingbyuserid = async (req, res) => {
 
 const bookroom = async (req, res) => {
   const { room, userid, fromdate, todate, totalamount, totaldays } = req.body
-  console.log(room, userid, fromdate, todate, totalamount, totaldays)
+
   try {
     const newBooking = new Booking({
       roomName: room.name,

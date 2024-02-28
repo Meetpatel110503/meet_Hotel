@@ -11,6 +11,10 @@ const bookingSchema = mongoose.Schema(
       required: true,
       default: "booked",
     },
+    bookedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // Reference to the User model
+    },
     userid: {
       type: String,
       required: true,

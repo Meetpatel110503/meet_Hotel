@@ -8,7 +8,11 @@ const {
   deleteroom,
   updateroom,
 } = require("../controller/roomController")
-const {verifyToken,verifyUser,verifyAdmin}=require("../middleware/verifyToken")
+const {
+  verifyToken,
+  verifyUser,
+  verifyAdmin,
+} = require("../middleware/verifyToken")
 
 router.post("/getroombyid/", room)
 
@@ -16,8 +20,8 @@ router.get("/getallrooms", getAllrooms)
 
 router.post("/addroom",verifyAdmin, addroom)
 
-router.delete("/deleteroom/:id",verifyAdmin, deleteroom)
+router.delete("/deleteroom/:id",  verifyAdmin, deleteroom)
 
-router.patch("/updateroom/:id",verifyAdmin, updateroom)
+router.patch("/updateroom/:id", verifyAdmin, updateroom)
 
 module.exports = router

@@ -1,13 +1,13 @@
 const npmConstants = require("../Constant.js")
 const User = require("../models/user")
-const bcrypt = npmConstants.bcrypt;
+const bcrypt = npmConstants.bcrypt
 const jwt = npmConstants.jwt
-const createError = require("../middleware/Error.js")
+const { createError } = require("../middleware/Error.js")
 require("dotenv").config()
 
 const home = async (req, res) => {
   try {
-    res.status(200).send("Welcome to world best hotel ")
+    res.status(200).send("Welcome to the world's best hotel")
   } catch (error) {
     console.log(error)
   }
@@ -16,7 +16,7 @@ const home = async (req, res) => {
 const register = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email })
-    if (user) return next(createError(303, "email already exists."))
+    if (user) return next(createError(303, "Email already exists."))
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(req.body.password, salt)
 
@@ -45,26 +45,19 @@ const login = async (req, res, next) => {
       return next(createError(400, "Wrong password or email!"))
     }
 
+    // Generate JWT token
     const token = jwt.sign(
-      { id: user._id, isAdmin: user.isAdmin },
-      process.env.JWT,
-      {
-        expiresIn: "30d",
-      }
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "10h" }
     )
 
-    const { password, isAdmin, ...otherDetails } = user
-    console.log(user)
-    res
-      .cookie("access_token", token, {
-        httpOnly: true,
-      })
-      .status(200)
-      .json({ details: { ...otherDetails }, isAdmin })
+    res.status(200).json({ message: "Login successful", token })
   } catch (err) {
     next(err)
   }
 }
+
 const getAllUser = async (req, res) => {
   try {
     const users = await User.find()
@@ -74,6 +67,7 @@ const getAllUser = async (req, res) => {
     return res.status(400).json({ message: error })
   }
 }
+
 const deleteUser = async (req, res, next) => {
   try {
     const userId = req.params.id
@@ -83,4 +77,5 @@ const deleteUser = async (req, res, next) => {
     next(err)
   }
 }
+
 module.exports = { home, register, login, getAllUser, deleteUser }
