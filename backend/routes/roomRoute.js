@@ -18,9 +18,9 @@ router.post("/getroombyid/", room)
 
 router.get("/getallrooms", getAllrooms)
 
-router.post("/addroom",verifyAdmin, addroom)
+router.post("/addroom", verifyAdmin, addroom)
 
-router.delete("/deleteroom/:id",  verifyAdmin, deleteroom)
+router.delete("/deleteroom/:id", verifyAdmin, deleteroom)
 
 router.patch("/updateroom/:id", verifyAdmin, updateroom)
 

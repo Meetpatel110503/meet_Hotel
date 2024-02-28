@@ -8,7 +8,7 @@ const {
   getAllUser,
   deleteUser,
 } = require("../controller/userController")
-const {verifyAdmin}=require("../middleware/verifyToken")
+const { verifyAdmin, verifyUser } = require("../middleware/verifyToken")
 
 router.post("/", home)
 
@@ -16,8 +16,8 @@ router.post("/register", register)
 
 router.post("/login", login)
 
-router.get("/getallusers", getAllUser)
+router.get("/getallusers", verifyAdmin, getAllUser)
 
-router.delete("/deleteuser/:id", deleteUser)
+router.delete("/deleteuser/:id", verifyUser, deleteUser)
 
 module.exports = router

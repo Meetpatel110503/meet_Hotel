@@ -23,8 +23,12 @@ const userSchema = mongoose.Schema(
       type: String, 
       required: true 
     },
-    city: { 
-      type: String 
+    gender: {
+      type: String, 
+      enum: ["Male", "Female"]
+    },
+    dob: {
+      type:Date,
     },
     isAdmin: { 
       type: Boolean, 

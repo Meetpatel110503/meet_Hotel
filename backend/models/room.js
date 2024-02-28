@@ -38,6 +38,9 @@ const roomSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    stars:{
+       type: Number,
+    },
   },
   { timestamps: true }
 )
