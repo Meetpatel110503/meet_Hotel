@@ -13,9 +13,8 @@ const getallbookings = async (req, res) => {
 }
 
 const cancelbooking = async (req, res) => {
-  const { bookingid, roomid } = req.body
-  console.log(req.body)
   try {
+    const { bookingid, roomid } = req.params
     const booking = await Booking.findOne({ _id: bookingid })
 
     booking.status = "cancelled"
@@ -29,14 +28,16 @@ const cancelbooking = async (req, res) => {
     res.send("Your booking cancelled successfully")
   } catch (error) {
     console.log(error)
-    return res.status(400).json({ message: error })
+    return res.status(400).json({ message: error.message })
   }
 }
 
 const getbookingbyuserid = async (req, res) => {
-  const { userid } = req.body
+  const { id } = req.params
   try {
-    const bookings = await Booking.find({ userid: userid })
+    let userid = id
+    const bookings = await Booking.find({ userid })
+    console.log(bookings)
     res.send(bookings)
   } catch (error) {
     console.log(error)

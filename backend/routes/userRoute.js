@@ -8,7 +8,7 @@ const {
   getAllUser,
   deleteUser,
 } = require("../controller/userController")
-const { verifyAdmin, verifyUser } = require("../middleware/verifyToken")
+const { verifyUser } = require("../middleware/verifyToken")
 
 router.post("/", home)
 
@@ -16,7 +16,7 @@ router.post("/register", register)
 
 router.post("/login", login)
 
-router.get("/getallusers", verifyAdmin, getAllUser)
+router.get("/getallusers", getAllUser)
 
 router.delete("/deleteuser/:id", verifyUser, deleteUser)
 

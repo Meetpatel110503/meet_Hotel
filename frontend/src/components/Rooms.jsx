@@ -19,7 +19,7 @@ function Room({ room, fromDate, toDate }) {
         <div className='col-md-7'>
           <h1>{room.name}</h1>
           <b>
-            <p>Max Count : {room.maxcount}</p>
+            <p>Max Count : {room.maxpeople}</p>
             <p>Phone Number : {room.phonenumber}</p>
             <p>Type : {room.type}</p>
           </b>

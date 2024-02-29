@@ -28,11 +28,11 @@ function ProfileScreen() {
             <div className='col-xs-12 ml-5 mb-5'>
               <div className='bs'>
                 <p>My Profile</p>
-                <p>Email : {user.details.email}</p>
-                <p>Name : {user.details.username}</p>
+                <p>Email : {user.data.details.email}</p>
+                <p>Name : {user.data.details.username}</p>
                 <p>
                   IsAdmin :{" "}
-                  {user.details.isAdmin ? (
+                  {user.data.details.isAdmin ? (
                     <Tag color='green'>YES</Tag>
                   ) : (
                     <Tag color='red'>NO</Tag>

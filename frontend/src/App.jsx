@@ -13,6 +13,8 @@ import LandingScreen from "./pages/LandingScreen"
 import AdminScreen from "./pages/admin/AdminScreen"
 
 function App() {
+  const user = JSON.parse(localStorage.getItem("currentUser"))
+
   return (
     <div className='App'>
       <Navbar />

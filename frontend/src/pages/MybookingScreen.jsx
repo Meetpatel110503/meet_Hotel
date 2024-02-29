@@ -9,22 +9,15 @@ function MyBookingScreen() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const user = JSON.parse(localStorage.getItem("currentUser"))
-  console.log("user details are ", user)
-
+  console.log(bookings)
   async function fetchMyAPI() {
     setError("")
     setLoading(true)
     try {
-      const response = (
-        await axios.get(
-          "http://localhost:5000/api/bookings/getbookingbyuserid",
-          {
-            userid: user.data.details._id,
-          }
-        )
-      ).data
-      setBookings(response)
-      console.log(response)
+      const response = await axios.get(
+        `http://localhost:5000/api/bookings/getbookingbyuserid/${user.data.details._id}`
+      )
+      setBookings(response.data)
     } catch (error) {
       setError(error)
     }
@@ -35,12 +28,9 @@ function MyBookingScreen() {
     setError("")
     setLoading(true)
     try {
-      const response = (
-        await axios.delete("http://localhost:5000/api/bookings/cancelbooking", {
-          bookingid,
-          roomid,
-        })
-      ).data
+     
+      const response = await axios.delete(`http://localhost:5000/api/bookings/cancelbooking/${bookingid}/${roomid}`  )
+      
       setLoading(false)
       fetchMyAPI()
     } catch (error) {
@@ -62,7 +52,6 @@ function MyBookingScreen() {
       ) : (
         <div className='row justify-content-center'>
           <div className='col-md-6  ml-5'>
-            {/* {console.log(bookings)} */}
             {bookings &&
               bookings.map((booking) => {
                 return (
@@ -93,9 +82,11 @@ function MyBookingScreen() {
                         <button
                           className='btn btn-danger'
                           onClick={() => {
+                            
                             cancelBooking(booking._id, booking.roomid)
                           }}
                         >
+
                           Cancel Booking
                         </button>
                       </div>

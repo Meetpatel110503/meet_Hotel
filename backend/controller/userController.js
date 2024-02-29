@@ -19,10 +19,12 @@ const register = async (req, res, next) => {
     if (user) return next(createError(303, "Email already exists."))
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(req.body.password, salt)
+    const chash = bcrypt.hashSync(req.body.cpassword, salt)
 
     const newUser = new User({
       ...req.body,
       password: hash,
+      cpassword: chash,
     })
 
     await newUser.save()
@@ -48,9 +50,13 @@ const login = async (req, res, next) => {
     const { password, ...otherDetails } = user._doc
     // Generate JWT token
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      {
+        id: user._id,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      },
       process.env.JWT_SECRET,
-      { expiresIn: "10d" }
+      { expiresIn: "30d" }
     )
 
     res.status(200).json({

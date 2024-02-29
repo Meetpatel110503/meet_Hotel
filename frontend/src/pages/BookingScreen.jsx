@@ -27,11 +27,9 @@ const BookingScreen = () => {
       try {
         setError("")
         setLoading(true)
-        const response = await axios.post(
-          `http://localhost:5000/api/rooms/getroombyid`,
-          {
-            roomid: params.roomid,
-          }
+
+        const response = await axios.get(
+          `http://localhost:5000/api/rooms/getroombyid/${params.roomid}`
         )
         setRoom(response.data.room)
       } catch (error) {
@@ -45,23 +43,25 @@ const BookingScreen = () => {
   useEffect(() => {
     const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1
     setTotalDays(totaldays)
-    setTotalAmount(totalDays * room.rentperday)
+    setTotalAmount(totalDays * room.price)
   }, [room])
 
   const bookroom = async () => {
     const bookingDetails = {
       room,
-      userid: JSON.parse(localStorage.getItem("currentUser")).details._doc._id,
+      userid: JSON.parse(localStorage.getItem("currentUser")).data.details._id,
       fromdate,
       todate,
       totalAmount: totalAmount,
       totaldays: totalDays,
     }
+
     try {
       const result = await axios.post(
         "http://localhost:5000/api/bookings/bookroom",
         bookingDetails
       )
+
       if (result.data.booking) {
         navigate("/home")
       }
@@ -91,7 +91,7 @@ const BookingScreen = () => {
                 <b>
                   <p>From Date :{params.fromdate} </p>
                   <p>To Date : {params.todate}</p>
-                  <p>Max Count : {room.maxcount}</p>
+                  <p>Max Count : {room.maxpeople}</p>
                 </b>
               </div>
               <div style={{ textAlign: "right" }}>
@@ -99,7 +99,7 @@ const BookingScreen = () => {
                 <hr />
                 <b>
                   <p>Total Days :{totalDays}</p>
-                  <p>Rent per day : {room.rentperday}</p>
+                  <p>Rent per day : {room.price}</p>
                   <p>Total Amount :{totalAmount} </p>
                 </b>
               </div>

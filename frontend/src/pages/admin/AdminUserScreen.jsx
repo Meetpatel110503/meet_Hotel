@@ -4,20 +4,20 @@ import { Table, Tag, Space, Button } from "antd"
 import { toast } from "react-toastify"
 import Loader from "../../components/Loading"
 import Error from "../../components/Error"
-import { useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 function AdminUserScreen() {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
-  const params = useParams()
+  const navigate = useNavigate()
   const user = JSON.parse(localStorage.getItem("currentUser"))
 
   const columns = [
     { title: "userid", dataIndex: "_id", key: "_id" },
     {
       title: "name",
-      dataIndex: "name",
+      dataIndex: "username",
       key: "name",
     },
     { title: "email", dataIndex: "email", key: "email" },
@@ -65,7 +65,10 @@ function AdminUserScreen() {
 
   async function deleteUser(id) {
     try {
-      await axios.delete(`http://localhost:5000/api/users/deleteuser/${id}`)
+      await axios.delete(
+        `http://localhost:5000/api/users/deleteuser/${id}`,
+        user
+      )
       fetchMyData()
       toast.success("user deleted successfully.") // Refresh data after deletion
     } catch (error) {

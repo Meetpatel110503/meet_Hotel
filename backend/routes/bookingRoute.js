@@ -7,14 +7,13 @@ const {
   getbookingbyuserid,
   bookroom,
 } = require("../controller/bookingController")
-const { verifyAdmin, verifyUser } = require("../middleware/verifyToken")
 
 router.get("/getallbookings", getallbookings)
 
-router.delete("/cancelbooking", verifyUser, cancelbooking)
+router.delete("/cancelbooking/:bookingid/:roomid", cancelbooking)
 
-router.get("/getbookingbyuserid", getbookingbyuserid)
+router.get("/getbookingbyuserid/:id", getbookingbyuserid)
 
-router.post("/bookroom", verifyUser, bookroom)
+router.post("/bookroom", bookroom)
 
 module.exports = router

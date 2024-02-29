@@ -11,13 +11,8 @@ function AdminBookingScreen() {
   const [error, setError] = useState("")
 
   const columns = [
-    {
-      title: "transactionid",
-      dataIndex: "transactionid",
-      key: "transactionid",
-    },
-    { title: "roomid", dataIndex: "roomid", key: "roomid" },
-    { title: "room", dataIndex: "room", key: "room" },
+    { title: "bookingid", dataIndex: "_id", key: "_id" },
+    { title: "roomName", dataIndex: "roomName", key: "roomName" },
     { title: "fromdate", dataIndex: "fromdate", key: "fromdate" },
     { title: "todate", dataIndex: "todate", key: "todate" },
     {

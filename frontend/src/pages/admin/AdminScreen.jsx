@@ -6,6 +6,7 @@ import AdminBookingScreen from "./AdminBookingScreen"
 import AdminRoomScreen from "./AdminRoomScreen"
 import AdminUserScreen from "./AdminUserScreen"
 import AdminAddRoomScreen from "./AdminAddRoomScreen"
+import { toast } from "react-toastify"
 const { TabPane } = Tabs
 function callback(key) {
   console.log(key)
@@ -16,6 +17,10 @@ function AdminScreen() {
 
   useEffect(() => {
     if (!user) {
+      navigate("/home")
+    }
+    if (user.data.details.isAdmin === false) {
+      toast.error("sorry you don't have admin access.")
       navigate("/home")
     }
   }, [])

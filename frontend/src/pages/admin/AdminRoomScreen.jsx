@@ -9,6 +9,7 @@ function AdminRoomScreen() {
   const [rooms, setRooms] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+  const user = JSON.parse(localStorage.getItem("currentUser"))
 
   const columns = [
     {
@@ -54,7 +55,10 @@ function AdminRoomScreen() {
 
   async function deleteRoom(roomId) {
     try {
-      await axios.delete(`http://localhost:5000/api/rooms/deleteroom/${roomId}`)
+      await axios.delete(
+        `http://localhost:5000/api/rooms/deleteroom/${roomId}`,
+        user
+      )
       fetchMyData()
       toast.success("room deleted successfullly.") // Refresh data after deletion
     } catch (error) {

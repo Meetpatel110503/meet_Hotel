@@ -3,8 +3,7 @@ require("dotenv").config()
 const { createError } = require("./Error.js")
 
 const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization
-  console.log(token)
+  const token = req.body.token
 
   if (!token) {
     return next(createError(401, "You are not authenticated!"))
@@ -19,7 +18,7 @@ const verifyToken = (req, res, next) => {
 
 const verifyUser = (req, res, next) => {
   verifyToken(req, res, next, () => {
-    if (req.user.id === req.params.id || req.user.isAdmin) {
+    if (req.user.id === req.params.id) {
       next()
     } else {
       return next(createError(403, "You are not authorized!"))

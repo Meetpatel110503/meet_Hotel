@@ -9,16 +9,14 @@ const {
   updateroom,
 } = require("../controller/roomController")
 const {
-  verifyToken,
-  verifyUser,
   verifyAdmin,
 } = require("../middleware/verifyToken")
 
-router.post("/getroombyid/", room)
+router.get("/getroombyid/:id", room)
 
 router.get("/getallrooms", getAllrooms)
 
-router.post("/addroom", verifyAdmin, addroom)
+router.post("/addroom", addroom)
 
 router.delete("/deleteroom/:id", verifyAdmin, deleteroom)
 

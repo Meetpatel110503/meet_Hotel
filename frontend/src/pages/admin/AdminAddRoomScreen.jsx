@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import { Form, Input, InputNumber, Button, Select } from "antd"
 import { useForm } from "react-hook-form"
+import { toast } from "react-toastify"
 
 const layout = {
   labelCol: {
@@ -20,7 +21,6 @@ const tailLayout = {
 }
 
 function AdminAddRoomScreen() {
-  const { Option } = Select
   const {
     register,
     handleSubmit,
@@ -35,6 +35,7 @@ function AdminAddRoomScreen() {
         "http://localhost:5000/api/rooms/addroom",
         values
       )
+      toast.success("room added successfully")
       reset() // Reset the form after successful submission
     } catch (error) {
       console.error(error)
@@ -106,8 +107,9 @@ function AdminAddRoomScreen() {
             rules={[{ required: true, message: "Type is required" }]}
           >
             <select placeholder='Select a room type' {...register("type")}>
-              <option value='Delux'>Delux</option>
+              <option value=''></option>
               <option value='Non-Delux'>Non-Delux</option>
+              <option value='Delux'>Delux</option>
             </select>
           </Form.Item>
           <Form.Item {...tailLayout}>

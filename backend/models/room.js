@@ -21,7 +21,7 @@ const roomSchema = mongoose.Schema(
     },
     booked: {
       type: Boolean,
-      default: false
+      default: false,
     },
     price: {
       type: Number,
@@ -38,8 +38,8 @@ const roomSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    stars:{
-       type: Number,
+    stars: {
+      type: Number,
     },
   },
   { timestamps: true }

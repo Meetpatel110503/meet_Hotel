@@ -76,7 +76,7 @@ function RegisterScreen() {
             />
             {errors.password && <span>Password is required</span>}
             <input
-              type='cpassword'
+              type='password'
               className='form-control'
               placeholder='Confirm Password'
               {...register("cpassword", { required: true })}

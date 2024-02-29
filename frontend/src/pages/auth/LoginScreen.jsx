@@ -23,12 +23,7 @@ function LoginScreen() {
         "http://localhost:5000/api/users/login",
         data
       )
-      localStorage.setItem("currentUser", JSON.stringify(response.data))
-      if (response.data.details.isAdmin) {
-        navigate("/admin")
-      } else {
-        navigate("/home")
-      }
+      localStorage.setItem("currentUser", JSON.stringify(response))
       navigate("/home")
     } catch (error) {
       setError("Invalid Credentials")
