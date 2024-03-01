@@ -3,19 +3,19 @@ import axios from "axios"
 import { Tag } from "antd"
 import Loader from "../components/Loading"
 import Error from "../components/Error"
+import { toast } from "react-toastify"
 
 function MyBookingScreen() {
   const [bookings, setBookings] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const user = JSON.parse(localStorage.getItem("currentUser"))
-  console.log(bookings)
   async function fetchMyAPI() {
     setError("")
     setLoading(true)
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/bookings/getbookingbyuserid/${user.data.details._id}`
+        `http://localhost:5000/api/bookings/getbookingbyuserid/${user.details._id}`
       )
       setBookings(response.data)
     } catch (error) {
@@ -28,9 +28,10 @@ function MyBookingScreen() {
     setError("")
     setLoading(true)
     try {
-     
-      const response = await axios.delete(`http://localhost:5000/api/bookings/cancelbooking/${bookingid}/${roomid}`  )
-      
+      const response = await axios.delete(
+        `http://localhost:5000/api/bookings/cancelbooking/${bookingid}/${roomid}`
+      )
+      toast.success("Your room is cancled successfully.")
       setLoading(false)
       fetchMyAPI()
     } catch (error) {
@@ -82,11 +83,9 @@ function MyBookingScreen() {
                         <button
                           className='btn btn-danger'
                           onClick={() => {
-                            
                             cancelBooking(booking._id, booking.roomid)
                           }}
                         >
-
                           Cancel Booking
                         </button>
                       </div>

@@ -3,7 +3,6 @@ const Room = require("../models/room")
 const room = async (req, res) => {
   try {
     const roomid = req.params.id;
-    console.log(roomid)
     const room = await Room.findOne({ _id: roomid })
     if (room) {
       return res.status(200).json({ message: "Room found", room: room })
@@ -20,14 +19,12 @@ const getAllrooms = async (req, res) => {
     const rooms = await Room.find()
     res.send(rooms)
   } catch (error) {
-    console.log(error)
     return res.status(400).json({ message: error })
   }
 }
 const addroom = async (req, res) => {
   try {
     const newRoom = req.body
-    console.log(req.body)
     const room = new Room()
     room.name = newRoom.name
     room.roomNumber = newRoom.roomNumber
@@ -50,7 +47,6 @@ const addroom = async (req, res) => {
     const result = await room.save()
     res.send(result)
   } catch (error) {
-    console.log(error)
     return res.status(400).json({ message: error })
   }
 }

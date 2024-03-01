@@ -110,7 +110,7 @@ function Homescreen() {
             filterRooms?.map((x, id) => {
               return (
                 <div className='col-md-9 mt-3' data-aos='flip-down' key={id}>
-                  <Rooms room={x}  fromDate={fromDate} toDate={toDate} />
+                  <Rooms room={x} fromDate={fromDate} toDate={toDate} />
                 </div>
               )
             })

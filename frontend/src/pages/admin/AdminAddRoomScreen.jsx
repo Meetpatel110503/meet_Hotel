@@ -30,7 +30,6 @@ function AdminAddRoomScreen() {
 
   const onSubmit = async (values) => {
     try {
-      console.log(values)
       const data = await axios.post(
         "http://localhost:5000/api/rooms/addroom",
         values

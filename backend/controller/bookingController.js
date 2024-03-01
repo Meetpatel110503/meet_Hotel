@@ -7,7 +7,6 @@ const getallbookings = async (req, res) => {
     const bookings = await Booking.find()
     res.send(bookings)
   } catch (error) {
-    console.log(error)
     return res.status(400).json({ message: error })
   }
 }
@@ -27,7 +26,6 @@ const cancelbooking = async (req, res) => {
 
     res.send("Your booking cancelled successfully")
   } catch (error) {
-    console.log(error)
     return res.status(400).json({ message: error.message })
   }
 }
@@ -37,10 +35,8 @@ const getbookingbyuserid = async (req, res) => {
   try {
     let userid = id
     const bookings = await Booking.find({ userid })
-    console.log(bookings)
     res.send(bookings)
   } catch (error) {
-    console.log(error)
     return res.status(400).json({ message: error })
   }
 }
@@ -58,7 +54,7 @@ const bookroom = async (req, res) => {
       totalamount: "89999",
       totaldays: "9",
     })
-    // console.log(newBooking)
+  
     const booking = await newBooking.save()
     const id = room._id
     const roomTmp = await Room.findById(id)
@@ -72,7 +68,6 @@ const bookroom = async (req, res) => {
     })
 
     const currentbookings = await roomTmp.save()
-    console.log(currentbookings)
     res.send({ booking: true })
   } catch (e) {
     console.log(e)

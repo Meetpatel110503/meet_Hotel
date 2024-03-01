@@ -19,7 +19,7 @@ const BookingScreen = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"))
-
+    console.log(user)
     if (!user) {
       navigate("/login")
     }
@@ -49,7 +49,7 @@ const BookingScreen = () => {
   const bookroom = async () => {
     const bookingDetails = {
       room,
-      userid: JSON.parse(localStorage.getItem("currentUser")).data.details._id,
+      userid: JSON.parse(localStorage.getItem("currentUser")).details._id,
       fromdate,
       todate,
       totalAmount: totalAmount,

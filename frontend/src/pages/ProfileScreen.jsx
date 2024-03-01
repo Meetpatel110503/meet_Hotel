@@ -16,23 +16,19 @@ function ProfileScreen() {
     }
   }, [])
 
-  function callback(key) {
-    console.log(key)
-  }
-
   return (
     <div className='ml-3 mt-3'>
-      <Tabs defaultActiveKey='1' onChange={callback}>
+      <Tabs defaultActiveKey='1'>
         <TabPane tab='Profile' key='1'>
           <div className='row'>
             <div className='col-xs-12 ml-5 mb-5'>
               <div className='bs'>
                 <p>My Profile</p>
-                <p>Email : {user.data.details.email}</p>
-                <p>Name : {user.data.details.username}</p>
+                <p>Email : {user.details.email}</p>
+                <p>Name : {user.details.username}</p>
                 <p>
                   IsAdmin :{" "}
-                  {user.data.details.isAdmin ? (
+                  {user.details.isAdmin ? (
                     <Tag color='green'>YES</Tag>
                   ) : (
                     <Tag color='red'>NO</Tag>
