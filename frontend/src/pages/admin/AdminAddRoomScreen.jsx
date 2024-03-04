@@ -35,7 +35,7 @@ function AdminAddRoomScreen() {
         values
       )
       toast.success("room added successfully")
-      reset() // Reset the form after successful submission
+      reset()
     } catch (error) {
       console.error(error)
     }

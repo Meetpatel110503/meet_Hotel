@@ -70,7 +70,7 @@ function AdminUserScreen() {
         user
       )
       fetchMyData()
-      toast.success("user deleted successfully.") // Refresh data after deletion
+      toast.success("user deleted successfully.") 
     } catch (error) {
       setError(error.message)
     }

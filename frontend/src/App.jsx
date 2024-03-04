@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import "./App.css"
+import "./assets/styles/App.css"
 import Navbar from "./pages/Navbar"
 import Homescreen from "./pages/Homescreen"
 import RegisterScreen from "./pages/auth/RegistrationScreen"

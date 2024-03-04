@@ -1,7 +1,7 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useForm } from "react-hook-form"
-import { register } from "../../features/users/registerSlice"
+import { register } from "../../redux/action/registerSlice"
 import Loader from "../../components/Loading"
 import Error from "../../components/Error"
 import Success from "../../components/Success"

@@ -1,7 +1,7 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useForm } from "react-hook-form"
-import { login } from "../../features/users/authSlice"
+import { login } from "../../redux/action/authSlice"
 import Loader from "../../components/Loading"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
