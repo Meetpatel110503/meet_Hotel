@@ -19,12 +19,16 @@ function RegisterScreen() {
   const navigate = useNavigate()
 
   const onSubmit = async (data) => {
-    const { name, email, phone, password, cpassword } = data
+    const { username, email, phone, password, cpassword } = data
     if (password === cpassword) {
-      dispatch(register(data)).then(() => {
-        toast.success("registartion successfully.")
-        navigate("/login")
-      })
+      dispatch(register(data))
+        .then(() => {
+          toast.success("Registration successful.")
+          navigate("/login")
+        })
+        .catch(() => {
+          toast.error("Something went wrong, please try again.")
+        })
     } else {
       toast.error("Passwords do not match.")
     }
@@ -35,47 +39,108 @@ function RegisterScreen() {
       {error && <Error msg={error} />}
       {success && <Success msg={success} />}
       {loading && <Loader />}
-      <div className='row justify-content-center mt-5'>
-        <div className='col-md-5 mt-5'>
-          <form className='bs' onSubmit={handleSubmit(onSubmit)}>
-            <h2>Register</h2>
-            <input
-              type='text'
-              className='form-control'
-              placeholder='Name'
-              {...registerForm("username", { required: true })}
-            />
-            {errors.name && <span>Name is required</span>}
-            <input
-              type='email'
-              className='form-control'
-              placeholder='Email'
-              {...registerForm("email", { required: true })}
-            />
-            {errors.email && <span>Email is required</span>}
-            <input
-              type='text'
-              className='form-control'
-              placeholder='Phone'
-              {...registerForm("phone", { required: true })}
-            />
-            {errors.phone && <span>Phone is required</span>}
-            <input
-              type='password'
-              className='form-control'
-              placeholder='Password'
-              {...registerForm("password", { required: true })}
-            />
-            {errors.password && <span>Password is required</span>}
-            <input
-              type='password'
-              className='form-control'
-              placeholder='Confirm Password'
-              {...registerForm("cpassword", { required: true })}
-            />
-            {errors.cpassword && <span>Confirm Password is required</span>}
-            <button className='btn btn-primary mt-3' type='submit'>
+      <div className='flex justify-center mt-5'>
+        <div className='w-full max-w-md'>
+          <form
+            className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8 space-y-6'
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <h2 className='text-2xl font-bold text-gray-900 dark:text-white'>
               Register
+            </h2>
+            <div className='mb-4'>
+              <label
+                className='block text-gray-700 text-sm font-bold mb-2'
+                htmlFor='username'
+              >
+                Username
+              </label>
+              <input
+                type='text'
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                placeholder='Name'
+                {...registerForm("username", { required: true })}
+              />
+              {errors.username && (
+                <p className='text-red-500'>Name is required</p>
+              )}
+            </div>
+
+            <div className='mb-4'>
+              <label
+                className='block text-gray-700 text-sm font-bold mb-2'
+                htmlFor='email'
+              >
+                Email
+              </label>
+              <input
+                type='email'
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                placeholder='Email'
+                {...registerForm("email", { required: true })}
+              />
+              {errors.email && (
+                <p className='text-red-500'>Email is required</p>
+              )}
+            </div>
+            <div className='mb-4'>
+              <label
+                className='block text-gray-700 text-sm font-bold mb-2'
+                htmlFor='phone'
+              >
+                Phone
+              </label>
+              <input
+                type='text'
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                placeholder='Phone'
+                {...registerForm("phone", { required: true })}
+              />
+              {errors.phone && (
+                <p className='text-red-500'>Phone is required</p>
+              )}
+            </div>
+            <div className='mb-4'>
+              <label
+                className='block text-gray-700 text-sm font-bold mb-2'
+                htmlFor='password'
+              >
+                Password
+              </label>
+              <input
+                type='password'
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                placeholder='Password'
+                {...registerForm("password", { required: true })}
+              />
+              {errors.password && (
+                <p className='text-red-500'>Password is required</p>
+              )}
+            </div>
+            <div className='mb-4'>
+              <label
+                className='block text-gray-700 text-sm font-bold mb-2'
+                htmlFor='cpassword'
+              >
+                Confirm Password
+              </label>
+              <input
+                type='password'
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                placeholder='Confirm Password'
+                {...registerForm("cpassword", { required: true })}
+              />
+              {errors.cpassword && (
+                <p className='text-red-500'>Confirm Password is required</p>
+              )}
+            </div>
+            <button
+              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              type='submit'
+            >
+              {loading ? "Registering..." : "Register"}
             </button>
           </form>
         </div>

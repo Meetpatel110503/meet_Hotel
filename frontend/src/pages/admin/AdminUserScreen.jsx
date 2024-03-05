@@ -70,7 +70,7 @@ function AdminUserScreen() {
         user
       )
       fetchMyData()
-      toast.success("user deleted successfully.") 
+      toast.success("user deleted successfully.")
     } catch (error) {
       setError(error.message)
     }
@@ -81,7 +81,7 @@ function AdminUserScreen() {
   }, [])
 
   return (
-    <div className='row'>
+    <div className='mx-auto max-w-3xl px-4 py-8'>
       {loading ? (
         <Loader></Loader>
       ) : error.length > 0 ? (

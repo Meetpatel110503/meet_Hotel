@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Rooms from "../components/Rooms"
 import Loader from "../components/Loading"
-import { DatePicker, Space } from "antd"
-const { RangePicker } = DatePicker
+import { DatePicker } from "antd"
 import moment from "moment"
 
 function Homescreen() {
@@ -65,51 +64,52 @@ function Homescreen() {
 
   return (
     <>
-      <div className='container'>
-        <div className='row mt-5 bs'>
-          <div className='col-md-3'>
-            <RangePicker
-              format='DD-MM-YYYY'
-              onChange={filterByDate}
-              disabledDate={disabledDate}
-            />
-          </div>
-
-          <div className='col-md-5'>
-            <input
-              type='text'
-              className='form-control'
-              placeholder='search rooms'
-              value={searchKey}
-              onChange={(e) => {
-                setSearchKey(e.target.value.toLocaleLowerCase())
-              }}
-              onKeyUp={filterBySearch}
-            />
-          </div>
-          <div className='col-md-3'>
-            <select
-              className='form-control'
-              value={type}
-              onChange={(e) => {
-                filterByType(e.target.value)
-              }}
-            >
-              <option value='all'>all</option>
-              <option value='delux'>Delux</option>
-              <option value='non-delux'>Non-Delux</option>
-            </select>
+      <div className='container mx-auto'>
+        <div className='p-4 bg-white shadow-md rounded-md'>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+            <div>
+              <DatePicker.RangePicker
+                format='DD-MM-YYYY'
+                onChange={filterByDate}
+                disabledDate={disabledDate}
+              />
+            </div>
+            <div>
+              <input
+                type='text'
+                className='form-control w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500'
+                placeholder='Search rooms'
+                value={searchKey}
+                onChange={(e) => {
+                  setSearchKey(e.target.value.toLocaleLowerCase())
+                }}
+                onKeyUp={filterBySearch}
+              />
+            </div>
+            <div>
+              <select
+                className='form-control w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500'
+                value={type}
+                onChange={(e) => {
+                  filterByType(e.target.value)
+                }}
+              >
+                <option value='all'>All</option>
+                <option value='delux'>Delux</option>
+                <option value='non-delux'>Non-Delux</option>
+              </select>
+            </div>
           </div>
         </div>
-        <div className='row justify-content-center mt-5'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mt-5'>
           {loading ? (
-            <Loader></Loader>
+            <Loader />
           ) : (
             rooms &&
             rooms.length > 0 &&
             filterRooms?.map((x, id) => {
               return (
-                <div className='col-md-9 mt-3' data-aos='flip-down' key={id}>
+                <div className='col-span-3 md:col-span-1' key={id}>
                   <Rooms room={x} fromDate={fromDate} toDate={toDate} />
                 </div>
               )

@@ -2,7 +2,7 @@ const Room = require("../models/room")
 
 const room = async (req, res) => {
   try {
-    const roomid = req.params.id;
+    const roomid = req.params.id
     const room = await Room.findOne({ _id: roomid })
     if (room) {
       return res.status(200).json({ message: "Room found", room: room })

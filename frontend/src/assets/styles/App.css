@@ -1,3 +1,6 @@
+*{
+  margin:2px
+}
 #root {
   margin: auto;
   text-align: center;

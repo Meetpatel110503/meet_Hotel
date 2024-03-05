@@ -4,10 +4,7 @@ import { NavLink } from "react-router-dom"
 function ErrorPage({ msg }) {
   return (
     <div>
-      <div className='alert alert-danger error' role='alert'>
-        <video height='240'>
-          <source src='https://i.gifer.com/7Fmb.mp4' type='video/mp4' />
-        </video>
+      <div className='alert alert-danger error ' role='alert'>
         <h2 className='header'>404</h2>
         <h4>Sorry! Page not found</h4>
         <p>

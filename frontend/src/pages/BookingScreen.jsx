@@ -19,7 +19,6 @@ const BookingScreen = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"))
-    console.log(user)
     if (!user) {
       navigate("/login")
     }
@@ -75,36 +74,36 @@ const BookingScreen = () => {
     <>
       <div className='m-5'>
         {loading ? (
-          <Loader></Loader>
+          <Loader />
         ) : error.length > 0 ? (
-          <Error msg={error}></Error>
+          <Error msg={error} />
         ) : (
-          <div className='row justify-content-center mt-5 bs'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 bs'>
             <div className='col-md-6'>
-              <h1>{room.name}</h1>
+              <h1 className='text-3xl font-bold mb-4'>{room.name}</h1>
               <img src={room.imageurls[0]} alt='' className='bigimg' />
             </div>
             <div className='col-md-6'>
-              <div style={{ textAlign: "right" }}>
-                <h1>Booking Details</h1>
-                <hr />
-                <b>
-                  <p>From Date :{params.fromdate} </p>
-                  <p>To Date : {params.todate}</p>
-                  <p>Max Count : {room.maxpeople}</p>
-                </b>
+              <div className='text-right'>
+                <h1 className='text-3xl font-bold'>Booking Details</h1>
+                <hr className='my-2' />
+                <div className='font-semibold'>
+                  <p>From Date: {params.fromdate}</p>
+                  <p>To Date: {params.todate}</p>
+                  <p>Max Count: {room.maxpeople}</p>
+                </div>
               </div>
-              <div style={{ textAlign: "right" }}>
-                <h1>Amount</h1>
-                <hr />
-                <b>
-                  <p>Total Days :{totalDays}</p>
-                  <p>Rent per day : {room.price}</p>
-                  <p>Total Amount :{totalAmount} </p>
-                </b>
+              <div className='text-right'>
+                <h1 className='text-3xl font-bold'>Amount</h1>
+                <hr className='my-2' />
+                <div className='font-semibold'>
+                  <p>Total Days: {totalDays}</p>
+                  <p>Rent per day: {room.price}</p>
+                  <p>Total Amount: {totalAmount}</p>
+                </div>
               </div>
             </div>
-            <div style={{ float: "left" }}>
+            <div className='text-left'>
               <button className='btn btn-primary' onClick={bookroom}>
                 Pay Now
               </button>
@@ -115,4 +114,5 @@ const BookingScreen = () => {
     </>
   )
 }
+
 export default BookingScreen

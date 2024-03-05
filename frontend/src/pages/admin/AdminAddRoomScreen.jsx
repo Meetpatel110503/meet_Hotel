@@ -1,24 +1,7 @@
 import React from "react"
 import axios from "axios"
-import { Form, Input, InputNumber, Button, Select } from "antd"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-
-const layout = {
-  labelCol: {
-    span: 4,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-}
-
-const tailLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16,
-  },
-}
 
 function AdminAddRoomScreen() {
   const {
@@ -43,83 +26,184 @@ function AdminAddRoomScreen() {
 
   return (
     <div className='row'>
-      <div className='col-md-12'>
-        <Form {...layout} onFinish={handleSubmit(onSubmit)}>
-          <Form.Item
-            label='Name'
-            name='name'
-            rules={[{ required: true, message: "Name is required" }]}
-          >
-            <input {...register("name")} />
-          </Form.Item>
-          <Form.Item
-            label='Description'
-            name='description'
-            rules={[{ required: true, message: "Description is required" }]}
-          >
-            <input {...register("description")} />
-          </Form.Item>
-          <Form.Item
-            label='Maxpeople'
-            name='maxpeople'
-            rules={[{ required: true, message: "Maxcount is required" }]}
-          >
-            <input {...register("maxpeople")} />
-          </Form.Item>
-          <Form.Item
-            label='Phonenumber'
-            name='phonenumber'
-            rules={[{ required: true, message: "Phonenumber is required" }]}
-          >
-            <input {...register("phonenumber")} />
-          </Form.Item>
-          <Form.Item
-            label='Rentperday'
-            name='price'
-            rules={[{ required: true, message: "Rentperday is required" }]}
-          >
-            <input {...register("price")} min={1} />
-          </Form.Item>
-          <Form.Item
-            label='Room Number'
-            name='roomNumber'
-            rules={[{ required: true, message: "Room number is required" }]}
-          >
-            <input {...register("roomNumber")} />
-          </Form.Item>
-          <Form.Item
-            label='Imageurl1'
-            name='imageurl1'
-            rules={[{ required: true, message: "Imageurl1 is required" }]}
-          >
-            <input {...register("imageurl1")} />
-          </Form.Item>
-          <Form.Item label='Imageurl2' name='imageurl2'>
-            <input {...register("imageurl2")} />
-          </Form.Item>
-          <Form.Item label='Imageurl3' name='imageurl3'>
-            <input {...register("imageurl3")} />
-          </Form.Item>
-          <Form.Item
-            label='Type'
-            name='type'
-            rules={[{ required: true, message: "Type is required" }]}
-          >
-            <select placeholder='Select a room type' {...register("type")}>
+      <div className='container mx-auto px-4 py-8'>
+        <h1 className='text-2xl font-bold mb-4'>Add Room</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className='max-w-md mx-auto'>
+          <div className='mb-4'>
+            <label htmlFor='name' className='block text-sm font-medium mb-2'>
+              Name
+            </label>
+            <input
+              type='text'
+              id='name'
+              className='form-input w-full'
+              {...register("name", { required: true })}
+            />
+            {errors.name && (
+              <span className='text-red-500'>Name is required</span>
+            )}
+          </div>
+          <div className='mb-4'>
+            <label
+              htmlFor='description'
+              className='block text-sm font-medium mb-2'
+            >
+              Description
+            </label>
+            <input
+              type='text'
+              id='description'
+              className='form-input w-full'
+              {...register("description", { required: true })}
+            />
+            {errors.description && (
+              <span className='text-red-500'>Description is required</span>
+            )}
+          </div>
+          <div className='mb-4'>
+            <label
+              htmlFor='maxpeople'
+              className='block text-sm font-medium mb-2'
+            >
+              Max People
+            </label>
+            <input
+              type='text'
+              id='maxpeople'
+              className='form-input w-full'
+              {...register("maxpeople", { required: true })}
+            />
+            {errors.maxpeople && (
+              <span className='text-red-500'>maxpeople is required</span>
+            )}
+          </div>
+          <div className='mb-4'>
+            <label
+              htmlFor='phonenumber'
+              className='block text-sm font-medium mb-2'
+            >
+              phonenumber
+            </label>
+            <input
+              type='text'
+              id='phonenumber'
+              className='form-input w-full'
+              {...register("phonenumber", { required: true })}
+            />
+            {errors.phonenumber && (
+              <span className='text-red-500'>phonenumber is required</span>
+            )}
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='price' className='block text-sm font-medium mb-2'>
+              price
+            </label>
+            <input
+              type='text'
+              id='price'
+              className='form-input w-full'
+              {...register("price", { required: true })}
+            />
+            {errors.price && (
+              <span className='text-red-500'>price is required</span>
+            )}
+          </div>
+          <div className='mb-4'>
+            <label
+              htmlFor='roomNumber'
+              className='block text-sm font-medium mb-2'
+            >
+              roomNumber
+            </label>
+            <input
+              type='text'
+              id='roomNumber'
+              className='form-input w-full'
+              {...register("roomNumber", { required: true })}
+            />
+            {errors.roomNumber && (
+              <span className='text-red-500'>roomNumber is required</span>
+            )}
+          </div>
+          <div className='mb-4'>
+            <label
+              htmlFor='imageurl1'
+              className='block text-sm font-medium mb-2'
+            >
+              imageurl1
+            </label>
+            <input
+              type='text'
+              id='imageurl1'
+              className='form-input w-full'
+              {...register("imageurl1", { required: true })}
+            />
+            {errors.imageurl1 && (
+              <span className='text-red-500'>imageurl1 is required</span>
+            )}
+          </div>
+          <div className='mb-4'>
+            <label
+              htmlFor='imageurl2'
+              className='block text-sm font-medium mb-2'
+            >
+              imageurl2
+            </label>
+            <input
+              type='text'
+              id='imageurl1'
+              className='form-input w-full'
+              {...register("imageurl2")}
+            />
+          </div>
+          <div className='mb-4'>
+            <label
+              htmlFor='imageurl3'
+              className='block text-sm font-medium mb-2'
+            >
+              imageurl3
+            </label>
+            <input
+              type='text'
+              id='imageurl3'
+              className='form-input w-full'
+              {...register("imageurl3")}
+            />
+          </div>
+          <div className='mb-4'>
+            <label htmlFor='type' className='block text-sm font-medium mb-2'>
+              Type
+            </label>
+            <select
+              id='type'
+              className='form-select w-full'
+              {...register("type", { required: true })}
+            >
               <option value=''></option>
               <option value='Non-Delux'>Non-Delux</option>
               <option value='Delux'>Delux</option>
             </select>
-          </Form.Item>
-          <Form.Item {...tailLayout}>
-            <Button type='primary' htmlType='submit'>
+            {errors.type && (
+              <span className='text-red-500'>Type is required</span>
+            )}
+          </div>
+
+          <div className='flex justify-between'>
+            <button
+              type='submit'
+              className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600'
+            >
               Add
-            </Button>
-            <Button htmlType='button' onClick={reset}>
+            </button>
+            <button
+              type='button'
+              onClick={reset}
+              className='bg-gray-300 text-gray-700 py-2 px-4 rounded hover:bg-gray-400'
+            >
               Reset
-            </Button>
-          </Form.Item>
-        </Form>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   )

@@ -51,13 +51,15 @@ function MyBookingScreen() {
       ) : error.length > 0 ? (
         <Error msg={error}></Error>
       ) : (
-        <div className='row justify-content-center'>
-          <div className='col-md-6  ml-5'>
+        <div className='row justify-center'>
+          <div className='flex items-center justify-center flex-wrap'>
             {bookings &&
               bookings.map((booking) => {
                 return (
-                  <div className='bs'>
-                    <h1>{booking.room}</h1>
+                  <div className='block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700  m-3'>
+                    <h1 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+                      {booking.roomName}
+                    </h1>
                     <p>
                       <b>BookingId:</b> {booking._id}
                     </p>
@@ -79,7 +81,7 @@ function MyBookingScreen() {
                       )}
                     </p>
                     {booking.status === "booked" && (
-                      <div className='text-right'>
+                      <div>
                         <button
                           className='btn btn-danger'
                           onClick={() => {
